@@ -1,0 +1,14 @@
+name = ec_taxonom_term
+core = 7.x
+package = Features
+dependencies[] = features
+dependencies[] = taxonomy
+features[features_api][] = api:2
+features[taxonomy][] = blog_categories
+features[taxonomy][] = blog_tags
+features[taxonomy][] = newsletter
+features[taxonomy][] = portfolio_categories
+features[taxonomy][] = product_categories
+features[taxonomy][] = product_manufactures
+features[taxonomy][] = product_size
+features[taxonomy][] = product_tags
