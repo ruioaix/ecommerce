@@ -1,0 +1,436 @@
+<?php
+
+/**
+ * Implements hook_block_info()
+ */
+function orenmode_config_block_info() {
+  $blocks['commerce_filter_price'] = array(
+    'info' => t('Price filter'),
+  );
+  $blocks['orenmode_error'] = array(
+    'info' => t('Orenmode Page Not Found'),
+  );
+  $blocks['orenmode_flickr'] = array(
+    'info' => t('Orenmode Flickr'),
+  );
+  $blocks['orenmode_banner1'] = array(
+    'info' => t('Orenmode Banner 1'),
+  );
+  $blocks['orenmode_banner2'] = array(
+    'info' => t('Orenmode Banner 2'),
+  );
+  $blocks['orenmode_banner3'] = array(
+    'info' => t('Orenmode Banner 3'),
+  );
+
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view()
+ */
+function orenmode_config_block_view($delta = '') {
+  $block = array();
+
+  switch ($delta) {
+    case 'commerce_filter_price':
+      $block['subject'] = '';
+      $block['content'] = array(
+        '#theme' => 'commerce_product_filter_price',
+      );
+      break;
+    case 'orenmode_error':
+      $block['subject'] = t('Page Not Found');
+      $block['content'] = array(
+        '#theme' => 'orenmode_error'
+      );
+      break;
+    case 'orenmode_flickr':
+      $block['subject'] = t('Flickr Images');
+      $block['content'] = array(
+        '#theme' => 'orenmode_flickr'
+      );
+      break;
+    case 'orenmode_banner1':
+      $block['subject'] = t('Banner 1');
+      $block['content'] = array(
+        '#theme' => 'orenmode_banner1'
+      );
+      break;
+    case 'orenmode_banner2':
+      $block['subject'] = t('Banner 2');
+      $block['content'] = array(
+        '#theme' => 'orenmode_banner2'
+      );
+      break;
+    case 'orenmode_banner3':
+      $block['subject'] = t('Banner 3');
+      $block['content'] = array(
+        '#theme' => 'orenmode_banner3'
+      );
+      break;
+  }
+  return $block;
+}
+
+/**
+ * Implement hook_theme().
+ */
+function orenmode_config_theme($existing, $type, $theme, $path) {
+  return array(
+    'commerce_product_expose' => array(
+      'render element' => 'form',
+      'template' => 'commerce-product-expose',
+      'path' => drupal_get_path('theme', 'md_orenmode') . '/template/custom', 
+      'pattern' => 'commerce_product_expose__'
+    ),
+    'orenmode_error' => array(
+      'variables' => array(),
+      'template' => '/templates/orenmode-error',
+    ),
+    'orenmode_flickr' => array(
+      'variables' => array(),
+      'template' => '/templates/orenmode-flickr',
+    ),
+    'orenmode_banner1' => array(
+      'variables' => array(),
+      'template' => '/templates/orenmode-banner1',
+    ),
+    'orenmode_banner2' => array(
+      'variables' => array(),
+      'template' => '/templates/orenmode-banner2',
+    ),
+    'orenmode_banner3' => array(
+      'variables' => array(),
+      'template' => '/templates/orenmode-banner3',
+    ),
+  );
+}
+
+/**
+ * Implements hook_views_query_alter().
+ */
+function orenmode_config_query_alter(QueryAlterableInterface $query) {
+  $view_name = 'products';
+  if ($query->hasTag('views_' . $view_name)) {    
+    $view = $query->getMetadata('view');
+    /*if ($view->current_display == 'compare') {
+      return;
+    }*/
+    $query->groupBy('nid');
+  }
+}
+
+/**
+ * Count nodes by categories
+ */
+function orenmode_config_count_node_by_product_categories($node_type = 'product') {
+  $result = &drupal_static(__FUNCTION__, FALSE);
+  if ($result) {
+    return $result;
+  }
+  
+  $select = db_select('taxonomy_term_data', 'term');
+  $join_condition = 't.field_product_categories_tid = term.tid AND t.entity_type = :entity_type AND t.deleted  = :deleted';
+  $select->leftJoin('field_data_field_product_categories', 't', $join_condition, array(':entity_type' => 'node', ':deleted' => 0));
+  $select->leftJoin('node', 'n', 'n.nid = t.entity_id');
+  $select->leftJoin('taxonomy_vocabulary', 'v', 'term.vid = v.vid');
+  $select->addExpression('COUNT(n.nid)', 'count');
+  $result = $select->fields('term', array('tid'))
+      ->condition('n.type', $node_type)
+      ->condition('v.machine_name', 'product_categories')
+      ->groupBy('term.vid')
+      ->groupBy('term.tid')
+      ->groupBy('v.machine_name')
+      ->execute()
+      ->fetchAllKeyed();
+  return $result;
+}
+
+/**
+ * Count nodes by sizes
+ */
+function orenmode_config_count_node_by_product_size($node_type = 'product') {
+  $result = &drupal_static(__FUNCTION__, FALSE);
+  if ($result) {
+    return $result;
+  }
+  $select = db_select('taxonomy_term_data', 'term');
+  $join_condition = 't.field_product_size_tid = term.tid AND t.entity_type = :entity_type AND t.deleted  = :deleted';
+  $select->leftJoin('field_data_field_product_size', 't', $join_condition, array(':entity_type' => 'commerce_product', ':deleted' => 0));
+  $select->leftJoin('commerce_product', 'p', 'p.product_id = t.entity_id');
+  
+  $select->leftJoin('field_data_field_product_ref', 'pf', 'p.product_id = pf.field_product_ref_product_id');
+  $select->leftJoin('node', 'n', 'n.nid = pf.entity_id');
+  $select->leftJoin('taxonomy_vocabulary', 'v', 'term.vid = v.vid');
+  
+  $select->addExpression('COUNT(DISTINCT n.nid)', 'count');
+  $result = $select->fields('term', array('tid'))
+      ->condition('n.type', $node_type)
+      ->condition('v.machine_name', 'product_size')
+      ->groupBy('term.vid')
+      ->groupBy('term.tid')
+      ->groupBy('v.machine_name')
+      ->execute()
+      ->fetchAllKeyed();
+  return $result;
+}
+
+/**
+ * Count nodes by manufacturer
+ */
+function orenmode_config_count_node_by_product_manufacturer($node_type = 'product') {
+  $result = &drupal_static(__FUNCTION__, FALSE);
+  if ($result) {
+    return $result;
+  }
+  
+  $select = db_select('taxonomy_term_data', 'term');
+  $join_condition = 't.field_product_manufacturer_tid = term.tid AND t.entity_type = :entity_type AND t.deleted  = :deleted';
+  $select->leftJoin('field_data_field_product_manufacturer', 't', $join_condition, array(':entity_type' => 'node', ':deleted' => 0));
+  $select->leftJoin('node', 'n', 'n.nid = t.entity_id');
+  $select->leftJoin('taxonomy_vocabulary', 'v', 'term.vid = v.vid');
+  $select->addExpression('COUNT(n.nid)', 'count');
+  $result = $select->fields('term', array('tid'))
+      ->condition('n.type', $node_type)
+      ->condition('v.machine_name', 'product_manufactures')
+      ->groupBy('term.vid')
+      ->groupBy('term.tid')
+      ->groupBy('v.machine_name')
+      ->execute()
+      ->fetchAllKeyed();
+  return $result;
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function orenmode_config_form_menu_edit_item_alter(&$form, &$form_state, $form_id) {
+  global $base_url;
+
+  if (isset($form_state['build_info']['args'][0]) && $form_state['build_info']['args'][0] == 'add') {
+    if (!isset($form_state['build_info']['args'][2]['menu_name']) || $form_state['build_info']['args'][2]['menu_name'] != 'main-menu') {
+      return;
+    }
+  }
+  if (isset($form_state['build_info']['args'][0]) && $form_state['build_info']['args'][0] == 'edit') {
+    if (!isset($form_state['build_info']['args'][1]['menu_name']) || $form_state['build_info']['args'][1]['menu_name'] != 'main-menu') {
+      return;
+    }
+  }
+  
+  $value = $layout = $layout_col = $layout_height = $bg_image = $layout_image_align = '';
+  
+  if ($form['mlid']['#value'] != 0) {
+    $layout = variable_get('orenmode_config_layout_' . $form['mlid']['#value'], '');
+    $layout_col = variable_get('orenmode_config_layout_col_' . $form['mlid']['#value'], '');
+    $layout_height = variable_get('orenmode_config_layout_height_' . $form['mlid']['#value'], '');
+    $layout_image_align = variable_get('orenmode_config_layout_image_align_' . $form['mlid']['#value'], '');
+    $bg_image = variable_get('orenmode_config_image_' . $form['mlid']['#value'], '');
+  }
+  $form['layout'] = array(
+    '#title' => 'Choose Menu Style',
+    '#type' => 'select',
+    '#options'  => array(
+        'menu-list'         => 'List',
+        'menu-col'          => 'Columns',
+        'menu-col-img'      => 'Columns with Image',
+    ),
+    '#weight' => 1,
+    '#default_value' => $layout,
+    '#states'   => array(
+        // Hide the logo settings when using the default logo.
+        'visible' => array(
+            ':input[name="parent"]' => array(
+                array('value' => 'main-menu:0'),
+            ),
+        ),
+    ),
+  );
+  $form['layout_col'] = array(
+    '#title'  => 'Choose Number of Columns',
+    '#type'   => 'select',
+    '#options'    => array(
+        '2'       => '2',
+        '3'       => '3',
+        '4'       => '4',
+        '5'       => '5',
+    ),
+    '#weight' => 2,
+    '#default_value' => $layout_col,
+    '#states'   => array(
+        // Hide the logo settings when using the default logo.
+        'visible' => array(
+            ':input[name="layout"]' => array(
+                array('value' => 'menu-col'),
+                array('value' => 'menu-col-img'),
+            ),
+        ),
+    ),
+  );
+  $form['layout_height'] = array(
+    '#title'  => 'Enter height value(px)',
+    '#type'   => 'textfield',
+    '#weight' => 3,
+    '#default_value' => $layout_height,
+    '#states'   => array(
+        // Hide the logo settings when using the default logo.
+        'visible' => array(
+            ':input[name="layout"]' => array(
+                array('value' => 'menu-col-img'),
+            ),
+        ),
+    ),
+  );
+  $form['layout_image_preview'] = array(
+    '#type' => 'item',
+    '#markup'       => '
+        <div class="form-wrapper mb-20">
+            <b>'.t('Menu Background Image Preview').'</b>
+                <div class="form-elements">
+                    <div class="preview">
+                        <img style="max-width: 100px;" class="img-preview" src="'.(!empty($bg_image['layout_image_path']) ? md_orenmode_theme_setting_check_path($bg_image['layout_image_path']) : $base_url.'/'.drupal_get_path('theme','md_orenmode').'/img/theme-settings/no_image.png').'" alt="">
+                    </div>
+                </div>
+                <a href="#" class="media-select-button button element-hidden md-button">'.t('Select').'</a>
+        </div>',
+    '#states'   => array(
+        // Hide the logo settings when using the default logo.
+        'visible' => array(
+            ':input[name="layout"]' => array(
+                array('value' => 'menu-col-img'),
+            ),
+        ),
+    ),
+    '#weight' => 4,
+  );
+  $form['layout_image_align'] = array(
+    '#title'  => 'Choose Background Position',
+    '#type'   => 'select',
+    '#options'    => array(
+        'r'       => 'right',
+        'l'       => 'left',
+    ),
+    '#weight' => 7,
+    '#default_value' => $layout_image_align,
+    '#states'   => array(
+        // Hide the logo settings when using the default logo.
+        'visible' => array(
+            ':input[name="layout"]' => array(
+                array('value' => 'menu-col-img'),
+            ),
+        ),
+    ),
+  );
+  $form['layout_image'] = array(
+    '#type' => 'file',
+    '#title' => t('Menu Background Image'),
+    '#states'   => array(
+        // Hide the logo settings when using the default logo.
+        'visible' => array(
+            ':input[name="layout"]' => array(
+                array('value' => 'menu-col-img'),
+            ),
+        ),
+    ),
+    '#weight' => 5,
+  );
+  $form['layout_image_path'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Path to menu background image'),
+    '#default_value' =>  ($bg_image) ? $bg_image['layout_image_path'] : '',
+    '#prefix' => '<div style="display: none;">',
+    '#suffix' => '</div>',
+    '#maxlength' => 1000,
+    '#states'   => array(
+        // Hide the logo settings when using the default logo.
+        'visible' => array(
+            ':input[name="layout"]' => array(
+                array('value' => 'menu-col-img'),
+            ),
+        ),
+    ),
+    '#weight' => 6,
+  );
+  $form['link_title']['#weight'] = -2;
+  $form['#submit'][] = 'orenmode_config_form_menu_edit_submit';
+}
+
+/**
+ * Store class to drupal variable.
+ */
+function orenmode_config_form_menu_edit_submit($form, $form_state) {
+  variable_set('orenmode_config_layout_' . $form_state['values']['mlid'], $form_state['values']['layout']);
+  variable_set('orenmode_config_layout_col_' . $form_state['values']['mlid'], $form_state['values']['layout_col']);
+  variable_set('orenmode_config_layout_height_' . $form_state['values']['mlid'], $form_state['values']['layout_height']);
+  variable_set('orenmode_config_layout_image_align_' . $form_state['values']['mlid'], $form_state['values']['layout_image_align']);
+  variable_set('orenmode_config_image_' . $form_state['values']['mlid'], storeImage('layout_image_path', 'layout_image', $form_state['values']));
+}
+
+/**
+ * @see theme_menu_link(&$vars).
+ */
+function orenmode_config_preprocess_menu_link(&$vars) {
+  $element = &$vars['element'];
+  if ($element['#original_link']['menu_name'] == 'main-menu') {
+    $layout = variable_get('orenmode_config_layout_' . $element['#original_link']['mlid'], '');
+    $element['#attributes']['layout'][] = $layout;
+    $layout_col = variable_get('orenmode_config_layout_col_' . $element['#original_link']['mlid'], '');
+    $element['#attributes']['layout_col'][] = $layout_col;
+    $layout_img_align = variable_get('orenmode_config_layout_image_align_' . $element['#original_link']['mlid'], '');
+    $element['#attributes']['layout_image_align'][] = $layout_img_align;
+    $layout_height = variable_get('orenmode_config_layout_height_' . $element['#original_link']['mlid'], '');
+    $element['#attributes']['layout_height'][] = preg_replace('/[^0-9,.]+/i', '', $layout_height)."px";
+    $layout_img = variable_get('orenmode_config_image_' . $element['#original_link']['mlid'], '');
+    if (isset( $layout_img['layout_image_path'])) {
+      $element['#attributes']['layout_img'][] = md_orenmode_theme_setting_check_path($layout_img['layout_image_path']);
+    }
+  }
+}
+
+function storeImage($path, $upload, $form_state_value) {
+    $validators = array('file_validate_extensions' => array('ico png gif jpg jpeg apng svg'));
+
+    if ($image_file = file_save_upload($upload,$validators)) {
+
+        $parts = pathinfo($image_file->filename);
+        $destination = 'public://' . $parts['basename'];
+        $image_file->status = FILE_STATUS_PERMANENT;
+        if (file_copy($image_file, $destination, FILE_EXISTS_REPLACE)) {
+            $_POST[$path] = $form_state_value[$path] = $parts['basename'];
+        }
+    }
+    if (isset($form_state_value[$path])) {
+        $file_path = $form_state_value[$path];
+
+        $file_scheme = file_uri_scheme($path);
+        if($file_scheme == 'http' || $file_scheme == 'https'){
+            $newimagename = basename(rawurldecode($file_path));
+            $external_file = file_get_contents(rawurldecode($file_path));
+            file_save_data($external_file, 'public://'.$newimagename.'',$replace = FILE_EXISTS_REPLACE);
+            $form_state_value[$path] = $newimagename;
+        }
+    }
+    return $form_state_value;
+}
+
+function md_orenmode_theme_setting_check_path($path) {
+    $path_scheme = file_uri_scheme($path);
+    if ($path_scheme == 'public') {
+        $return_path = file_create_url($path);
+    } else if (($path_scheme == 'http') || ($path_scheme == 'https')) {
+        $return_path = $path;
+    } else {
+        $return_path = file_create_url(file_build_uri($path));
+    }
+    return $return_path;
+}
+
+/**
+ * Implement hook_admin_paths().
+ */
+function orenmode_config_admin_paths() {
+  return array(
+    'comment/*/edit' => 'true'
+  );
+}
