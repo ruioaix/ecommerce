@@ -1,0 +1,826 @@
+@color-blue:  #1680bc;
+
+/* BREAKCRUMB COLOR */
+.breakcrumb .nav-breakcrumb {
+
+  &.om-color {
+
+    li { 
+
+      a:hover {
+        color:@color-blue;
+      }
+
+      span {
+        color:@color-blue;
+        border-bottom:1px solid@color-blue;
+        font-style: italic;
+      }
+    }
+  }
+}
+
+/* TOP MENU */
+.top-menu .box .flags a.current, 
+.top-menu .box .flags a:hover,
+.top-menu .bar-icon:hover{
+  border-color: @color-blue;
+}
+
+.top-menu .bar-icon:hover::after{
+  background-color: @color-blue;
+}
+
+
+/* HEADER COLOR */
+.mini-cart {
+
+  &.show-view{
+    .cart-head:after{
+      color:@color-blue;
+    }
+  }
+
+  .cart-head {
+    label span, p{
+      color:@color-blue;
+    }
+
+    .cart-count{
+      background-color:@color-blue;
+    }
+  }
+
+  .cart-cn {
+
+    .cart-list li .text .name a:hover,
+    .cart-list li .text span {
+      color:@color-blue;
+    }
+
+    .cart-bt .btn:hover {
+
+      background-color: @color-blue;
+      border-color: @color-blue;
+    }
+
+    .cart-total span{
+      color:@color-blue;
+    }
+  }
+}
+
+.menu-bar {
+  background-color:@color-blue;
+}
+
+/* NAVIGATION COLOR */
+.header {
+
+  &._1, &._2, &._3 {
+
+    .header-cn {
+
+      .navigation {
+
+        .menu {
+
+          li a:hover, li.current-menu-item > a, li.current-menu-parent > a {
+            color:@color-blue;
+          }
+        }
+      }
+    }
+  }
+  
+  &._1 .header-cn .navigation {
+
+    .menu {
+
+      > li { 
+        
+        > .sub-menu:before {
+          border-top-color:@color-blue;
+        }
+
+        &.menu-parent > a:after {
+          border-top-color:@color-blue;
+          border-left-color:@color-blue;
+        }
+
+        > a:before, &.current-menu-item > a:before {
+          border-bottom-color:@color-blue; 
+        }
+      }
+    }
+  }
+
+}
+
+/* SLIDE COLOR */
+.slide .slide-cn._2 .slide-item .text h2 {
+  color: @color-blue;
+}
+
+.slide-cn {
+
+  .slide-item .text .group .btn{
+    border-color: @color-blue;
+    color:@color-blue;
+    &:hover{
+      background-color: @color-blue;
+      color: #fff;
+    }
+  }
+}
+
+/* TRENDING TOPRATED ACCESSORIES COLOR */
+.trend-rated-item {
+
+  .text { 
+
+    h2 a:hover{
+      color:@color-blue;
+    }
+
+    .price-box .special-price .price{
+      color:@color-blue;
+    }
+
+  }
+}
+
+/* FEATURED PRODUCT COLOR */
+.featured-slide._2 .owl-prev:hover, 
+.featured-slide._2 .owl-next:hover{
+  background-color: @color-blue;
+  border-color: @color-blue;
+}
+
+/* TOP SALLES RATED */
+.selles-rate-item .text .price-box .special-price .price{
+  color: @color-blue;
+}
+
+/* PRODUCT COLOR */
+.sidebar-slider {
+  .slider {
+    .ui-slider-range, .btn-filter{
+      background-color:@color-blue;
+    }
+  }
+}
+
+.nav-cat {
+  li .check-box {
+    .checkbox:checked ~ label{
+      color:@color-blue;
+      
+      span {
+        color:@color-blue;
+      }
+    }
+  }
+}
+
+.sidebar-tags {
+  .sidebar-cloud a:hover{
+    color: #fff;
+    border-color:@color-blue;
+    background-color:@color-blue;
+  }
+}
+
+.view {
+
+    a:after {
+      background-color:@color-blue;
+    }
+
+    .view-grid {
+
+      &:hover {
+        background-position: -19px 0;
+      }
+
+      &.active{
+        background-position: -19px 0;
+
+        &:after {
+          opacity: 1;
+        }
+      }
+    }
+
+    .view-list {
+
+      &:hover {
+        background-position: -18px 0;
+      }
+
+      &.active{
+        background-position: -18px 0;
+
+        &:after {
+          opacity: 1;
+        }
+      }
+    }
+}
+
+.filter {
+  &:after {
+    border-color: @color-blue;
+  }
+}
+
+.filter-cn {
+
+  &:before {
+    border-color: @color-blue;
+  }
+}
+
+.paging-p {
+
+  li a:hover,
+  li.current a {
+    color:@color-blue;
+  }
+}
+
+/* PRODUCT LIST COLOR */
+.list-item {
+
+  .text .name a:hover,
+  .text .sku span, 
+  .text .rating a:hover,
+  .text .star,
+  .text .stock,
+  .text .group .price-box .special-price .price {
+    color:@color-blue;
+  }
+
+  &._1 {
+
+    .text .group .action .btn-add-cart:hover {
+      background-color: @color-blue;
+    }
+
+    .text .group .action .btn:hover{
+      background-color: @color-blue;
+      border-color: @color-blue;
+    }
+  }
+
+  &._2,&._3 {
+      
+    .text .group .action .btn-add-cart:hover {
+      background-color: @color-blue;
+    }
+
+    .text .group .price-box .special-price .price {
+      color: @color-blue;
+    }
+
+    .text .group .action .btn:hover{
+      background-color: @color-blue;
+      border-color: @color-blue;
+    }
+  }
+
+}
+
+/* PRODUCT GRID COLOR */
+.grid-item {
+
+  &._1 {
+
+    .image .action .group a:hover {
+      color:@color-blue;
+    }
+
+    .text .price-box .price {
+      color:@color-blue;
+    }
+  }
+
+  &._2 {
+    .image .action .btn:hover{
+      background-color: @color-blue;
+      border-color: @color-blue;
+    }
+  }
+
+  &._3 {
+      .image .rating-view {
+        .btn {
+          background-color: @color-blue;
+          border-color: @color-blue;
+          &:hover{
+            background-color: transparent;
+            color: @color-blue;
+          }
+        }
+      }
+
+       .text .action{
+          .btn {
+            
+            &:hover {
+              border-color: @color-blue;
+              background-color: @color-blue;
+            }
+
+            &.add-cart {
+              background-color: @color-blue;
+              border-color: @color-blue;
+
+              &:hover{
+                background-color: transparent;
+                color: @color-blue;
+              }
+            }
+          }
+       }
+  }
+
+  .text {
+    .name a:hover{
+      color:@color-blue;
+    }
+
+    .price-box .price{
+      color: @color-blue;
+    }
+  } 
+
+  .rating .star {
+    color: @color-blue;
+  }
+
+  .count-date {
+    &._1 {
+      background-color: @color-blue;
+    }
+  }
+}
+
+/* PRODUCT DETAIL */
+.product-detail {
+
+  .product-image .view-block .thumb_list li.active:after,
+  .product-image .view-block .thumb_list li:hover::after,
+  .product-text .attribute_fieldset .attribute_list .attribute_color li.active:after, 
+  .product-text .attribute_fieldset .attribute_list .attribute_color li:hover::after {
+    border-color:@color-blue;
+  }
+
+  .product-text .product_sku span,
+  .r-tabs .r-tabs-accordion-title a,
+  .product-collateral .nav-tab li.active a,
+  .product-text .product_review .review_star {
+    color:@color-blue;
+  }
+
+  .product-text {
+
+    .price-box .special-price .price{
+      color: @color-blue;
+    }
+
+    .add-to-box { 
+
+      .add-to-cart .btn {
+        background-color: @color-blue;
+        border-color: @color-blue;
+
+        &:hover {
+          background-color: transparent;
+          color:@color-blue;
+        }
+      }
+
+      .add-to-user .btn {
+          border-color: @color-blue;
+          color: @color-blue;
+
+        &:hover {
+          background-color: @color-blue;
+          color: #fff;
+        }
+      }
+    }
+  }
+}
+
+.related-cn {
+  &._2 {
+    .owl-prev:hover,.owl-next:hover {
+      background-color: @color-blue;
+      border-color: @color-blue;
+    }
+  }
+}
+
+/* CHECK OUT COLOR */
+.check-out-step {
+
+  li.current{
+    &:before {
+      background-color:@color-blue;
+    }
+    span{
+      color:@color-blue;
+    }
+  }
+}
+
+/* HEADING TABS */
+.heading-tabs {
+
+  &._1, &._3 {
+
+    ul li a:hover,
+    ul li.active a{
+      color:@color-blue;
+    }
+  }
+  
+  &._2 {
+
+    ul li a:hover,
+    ul li.active a{
+      background-color:@color-blue;
+      border-color:@color-blue;
+    }
+  }
+}
+
+/* SHOP CART */
+.table-cn {
+
+  .table-cart{
+    tbody tr td.td-sub,
+    tbody tr td .info a:hover,
+    tfoot tr td,
+    tbody tr td .info .attr span {
+      color:@color-blue;
+    }
+  }
+}
+
+.shop-button, .cart-collaterals {
+  .btn:hover {
+    background-color:@color-blue;
+    border-color: @color-blue;
+    color: #fff;
+  }
+}
+
+
+/* BLOG COLOR */
+.blog-item {
+
+  .img .blog-date,
+  .text .blog-meta li a span,
+  .text h2 a {
+    color:@color-blue;
+  }
+
+  .text h2 a:hover{
+    text-shadow: 1px 1px 0px rgba(215,31,83,0.3);
+  }
+
+  .img .blog-date{
+    color: @color-blue;
+    border:  2px solid;
+    border-right:  0;
+    &:before {
+      content: '';
+      display: block;
+      position: absolute;
+      width: 0;
+      height: 15px;
+      border-left: 3px solid;
+      right: -1px; top: -2px;
+      -webkit-transform-origin: 0 0;
+      -moz-transform-origin: 0 0;
+      -ms-transform-origin: 0 0;
+      -o-transform-origin: 0 0;
+      transform-origin: 0 0;
+      -webkit-transform: skew(45deg);
+      -moz-transform: skew(45deg);
+      -ms-transform: skew(45deg);
+      -o-transform: skew(45deg);
+      transform: skew(45deg);
+    }
+    &:after {
+      content: '';
+      display: block;
+      position: absolute;
+      width: 0;
+      height: 15px;
+      border-left: 3px solid;
+      right: -1px; bottom: -2px;
+      -webkit-transform-origin: 0 100%;
+      -moz-transform-origin: 0 100%;
+      -ms-transform-origin: 0 100%;
+      -o-transform-origin: 0 100%;
+      transform-origin: 0 100%;
+      -webkit-transform: skew(-45deg);
+      -moz-transform: skew(-45deg);
+      -ms-transform: skew(-45deg);
+      -o-transform: skew(-45deg);
+      transform: skew(-45deg);
+    }
+  }
+}
+
+.state-box._5,
+.state-box._6 {
+    color: @color-blue;
+    border:  2px solid;
+    border-right:  0;
+    &:before {
+      content: '';
+      display: block;
+      position: absolute;
+      width: 0;
+      height: 12px;
+      border-left: 3px solid;
+      right: -1px; top: -2px;
+      -webkit-transform-origin: 0 0;
+      -moz-transform-origin: 0 0;
+      -ms-transform-origin: 0 0;
+      -o-transform-origin: 0 0;
+      transform-origin: 0 0;
+      -webkit-transform: skew(45deg);
+      -moz-transform: skew(45deg);
+      -ms-transform: skew(45deg);
+      -o-transform: skew(45deg);
+      transform: skew(45deg);
+    }
+    &:after {
+      content: '';
+      display: block;
+      position: absolute;
+      width: 0;
+      height: 12px;
+      border-left: 3px solid;
+      right: -1px; bottom: -2px;
+      -webkit-transform-origin: 0 100%;
+      -moz-transform-origin: 0 100%;
+      -ms-transform-origin: 0 100%;
+      -o-transform-origin: 0 100%;
+      transform-origin: 0 100%;
+      -webkit-transform: skew(-45deg);
+      -moz-transform: skew(-45deg);
+      -ms-transform: skew(-45deg);
+      -o-transform: skew(-45deg);
+      transform: skew(-45deg);
+    }
+}
+.widget_categories, 
+.widget_archive {
+
+  ul li a:hover, ul li.current-cat a{
+    color:@color-blue;
+  }
+}
+
+.widget_recent_entries {
+
+  ul li .post-name:hover {
+    color:@color-blue;
+  } 
+}
+
+.widget_tag_cloud {
+
+  .tag_cloud a:hover {
+    color: #fff;
+    border-color:@color-blue;
+    background-color:@color-blue;
+  }
+}
+
+.post {
+
+    .entry-header .entry-title a:hover,
+    .entry-content .more-link a,
+    .entry-header .entry-meta li.post-author a,
+    .entry-header .entry-meta li.post-comment a span
+    {
+      color:@color-blue;
+    }
+
+    .entry-header .entry-thumb a:after{
+      background-color: @color-blue;
+    }
+}
+
+.paging {
+
+  ul li {
+
+    a {
+      color:@color-blue;
+
+      &:hover{
+        background-color:@color-blue;
+        color: #fff;
+      }
+    }
+
+    &.current a{
+      background-color:@color-blue;
+      color: #fff;
+    }
+  }
+}
+
+.post-single {
+
+  blockquote:before {
+    background-color:@color-blue;
+  }
+}
+
+#comments {
+  
+  .commentlist .comment .comment-body .comment-f a{
+    color:@color-blue;
+    border-bottom:1px solid@color-blue;
+  }
+}
+
+.comment-respond {
+
+  .btn {
+    background-color: @color-blue;
+    border-color:@color-blue;
+    &:hover {
+      background-color: transparent;
+      color: @color-blue;
+    }
+  }
+}
+
+
+/* PARTNER COLOR */
+.partner-cn {
+  &._2 {
+      .owl-next:hover,.owl-prev:hover {
+        background-color: @color-blue;
+        border-color: @color-blue;
+      }
+  }
+}
+
+/* CHECK OUT COLOR */
+.check-out-form {
+  .btn:hover {
+    background-color: @color-blue;
+    border-bottom-color: @color-blue;
+  }
+}
+
+/* COLLECTION COLOR */
+.collection-item {
+  .text .btn:hover {
+    background-color: @color-blue;
+    border-color: @color-blue;
+  }
+}
+
+/* LOGIN / REGISTER COLOR */
+.form {
+
+  &.login {
+
+    .btn-submit:hover {
+      background-color: @color-blue;
+      border-color: @color-blue;
+      color:#fff;
+    }
+  }
+}
+
+/* PAGE 404 COLOR */
+.page-404-cn {
+
+  .btn {
+      background-color: @color-blue;
+      border-color:@color-blue;
+
+      &:hover {
+        color: @color-blue;
+        background-color: transparent;
+      }
+  }
+}
+
+/* PORTFOLIO COLOR */
+.portfolio {
+  .portfolio-item {
+
+    &._1 {
+
+      &:after {
+        background-color: @color-blue;
+      }
+
+      &:hover::after {
+        opacity:0.8;
+      }
+    }
+
+    &._2 {
+
+      .img .quick-view:hover {
+        background-color: @color-blue;
+      }
+
+      .text {
+          p span {
+            color:@color-blue;
+          }
+      }
+
+      &:hover {
+        .text {
+          background-color: @color-blue;
+
+          &:after {
+            background-color: #1377b0;
+          }
+        }
+      }
+    }
+  }
+}
+
+.load-more-pf {
+  .btn {
+    color: @color-blue;
+    border-color: @color-blue;
+    &:hover{
+      background-color: @color-blue;
+      color: #fff;
+    }
+
+    &.load-active{
+      background-color: @color-blue;
+    }
+  }
+}
+
+.portfolio-info {
+
+  ul li {
+    .label-inf i {
+      color: @color-blue;
+    }
+    
+    p a {
+      color: @color-blue;
+    }
+  }
+}
+
+.colio .colio-close:hover::before, 
+.colio .colio-close:hover::after{
+  background-color: @color-blue;
+}
+
+/* SHIPPING TOP COLOR */
+.shipping-item { 
+
+  .inner {
+
+    .icon {
+      color: @color-blue;
+    }
+  }
+
+  &:hover {
+    background-color: @color-blue;
+    border-color: @color-blue;
+  }
+
+}
+
+
+/* SCROLL TOP COLOR */
+#scroll-top {
+    background-color: @color-blue;
+
+    &:after{
+      border-bottom-color: @color-blue;
+    }
+}
+
+.view a svg {
+  fill: @color-blue;
+}

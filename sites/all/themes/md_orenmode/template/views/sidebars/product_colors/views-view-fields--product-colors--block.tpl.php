@@ -1,0 +1,1 @@
+<li><a href="<?php print url('taxonomy/term/' . $fields['tid']->content); ?>" style="background-color: <?php print $fields['field_color']->content; ?>"></a></li>

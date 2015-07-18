@@ -1,0 +1,78 @@
+.page-404{
+	position: relative;
+	background-position: center right;
+	.overlay {
+		background-color: rgba(255,255,255,0.84);
+	}
+
+	.page-404-cn{
+		position: absolute;
+		top: 50%;
+		left: 0;
+		right: 0;
+		.translate(0,-50%);
+
+		h2{
+			text-transform: uppercase;
+			font-size: 100px;
+			color: #252525;
+			text-align: center;
+			margin: 0;
+			font-weight: 300;
+
+			span{
+				color: #d61415;
+				font-weight: bold;
+				margin-right: 30px;
+			}
+		}
+		p{
+			text-align: center;
+			color: #252525;
+			font-size: 25px;
+			margin: 20px 0 0 0;
+			font-weight: 300;
+		}
+
+		.search-page {
+			max-width: 500px;
+			margin: 75px auto 0px auto;
+			position: relative;
+			padding-right: 40px;
+			border: 1px solid #dcdcdc;
+			background-color: #fff;
+			.transition();
+
+			.input-text{
+				width: 100%;
+				padding:10px 15px;
+				border-width: 0;
+				background-color: transparent;
+				color: #252525;
+				font-weight: 300;
+				.placeholder(#252525);
+			}
+
+			.btn-search{
+				background:transparent url('../images/icon-search.png') no-repeat center center;
+				position: absolute;
+				right: 0;
+				top: -1px;
+				bottom: -1px;
+				width: 40px;
+				border-width: 0;
+				border-left: 1px solid transparent;
+			}
+		}
+
+		.btn{
+			margin-top: 70px;
+			font-size: 14px;
+		}
+	}
+
+}
+
+.partner-404{
+	margin-top: 50px;
+}
