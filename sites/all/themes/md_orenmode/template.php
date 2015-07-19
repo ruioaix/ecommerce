@@ -212,7 +212,7 @@ function md_orenmode_form_alter(&$form, &$form_state, $form_id) {
                     'class' => array('transition button'),
                 );
                 break;
-			case 'simplenews_block_form_1':
+			case 'simplenews_block_form_30':
 				$form['mail']['#title_display'] = 'invisible';
 				$form['mail']['#attributes']['placeholder'] = t('Enter Email...');
 				$form['mail']['#attributes']['class'][] = t('input-text');
