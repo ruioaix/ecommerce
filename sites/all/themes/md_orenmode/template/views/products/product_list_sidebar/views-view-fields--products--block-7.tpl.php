@@ -1,5 +1,5 @@
 <!-- ITEM -->
-<div class="list-item  _3">
+<div class="list-item  _1">
   <div class="image">
       <a href="<?php print $fields['path']->content;?>">
           <img src="<?php print $fields['field_product_thumbnail']->content;?>" alt="">
@@ -29,7 +29,7 @@
             <?php print t('Available in stock'); ?>
         </div>
       <?php endif; ?>
-      <div class="hr _2"></div>
+      <div class="hr _1"></div>
       <div class="sku">
           <?php print t('SKU'); ?>: <span>#<?php print $fields['sku']->content; ?></span>
       </div>
@@ -47,20 +47,20 @@
                   <p class="old-price"> 
                       <span class="price"><?php print $fields['field_old_price']->content; ?></span> 
                   </p>
-              <?php endif; ?>    
+              <?php endif; ?>     
           </div>
           <div class="action">
-              <a href="#" class="btn btn-12  btn-add-cart text-uppercase"><i class="fa fa-cart-plus"></i> <?php print $fields['add_to_cart_form']->content;?></a>
+              <a href="#" class="btn btn-2 btn-add-cart text-uppercase"><i class="fa fa-cart-plus"></i> <?php print $fields['add_to_cart_form']->content;?></a>
               <?php if(user_is_logged_in()) : ?>
-                    <span class="wishlist btn btn-12">
+                    <span class="wishlist btn btn-13">
 						<?php print flag_create_link('bookmark', $fields['nid']->content); ?>
                     </span>
-              		<span class="compare btn btn-12">
+              		<span class="compare btn btn-13">
 						<?php print flag_create_link('compare', $fields['nid']->content); ?>
                     </span>
               <?php else : ?>
-                    <a href="<?php print base_path().'user'; ?>" class="btn btn-12"><i class="fa fa-heart-o"></i> <span><?php print t('Add to WishList'); ?></span></a>
-                    <a href="<?php print base_path().'user'; ?>" class="btn btn-12"><i class="fa fa-refresh"></i> <span><?php print t('Add to Compare'); ?></span></a>
+                    <a href="<?php print base_path().'user'; ?>" class="btn btn-13"><i class="fa fa-heart-o"></i> <span><?php print t('Add to WishList'); ?></span></a>
+                    <a href="<?php print base_path().'user'; ?>" class="btn btn-13"><i class="fa fa-refresh"></i> <span><?php print t('Add to Compare'); ?></span></a>
               <?php endif; ?>
           </div>
           <div class="share">
